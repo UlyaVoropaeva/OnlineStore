@@ -1,7 +1,7 @@
 server:
-  port: 8080
+  port: 8189
   servlet:
-    context-path: /api/v1
+    context-path: /ui
 
 spring:
   datasource:
@@ -12,7 +12,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   thymeleaf:
     check-template-location: true
     servlet:
