@@ -1,9 +1,12 @@
 package ru.gb.servise;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.gb.entity.User;
 import ru.gb.repository.RoleRepository;
@@ -16,6 +19,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     public UserDetailsServiceImpl(RoleRepository roleRepository, UserRepository userRepository) {
         this.roleRepository = roleRepository;
