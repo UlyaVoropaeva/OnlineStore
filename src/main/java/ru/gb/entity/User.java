@@ -1,6 +1,8 @@
 package ru.gb.entity;
 
 import lombok.Data;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -8,6 +10,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "users")
 @Data
+@Component
+@Scope("session")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
