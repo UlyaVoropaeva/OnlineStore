@@ -57,6 +57,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm")Model model, HttpServletRequest request, User userForm, BindingResult bindingResult) {
 
+        HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -65,18 +66,19 @@ public class RegistrationController {
         }
         if (email.equals(userForm.getEmail()) || password.equals(userForm.getPassword())){
             model.addAttribute("error", "Your username and password is invalid.");
-            return "auth/registration";
+            return "auth/login";
         }
         userRepository.save(userForm);
+        session.setAttribute(userForm.getEmail(), userForm);
         securityService.autoLogin(userForm.getEmail(), userForm.getPassword());
 
-        return "redirect:/";
+        return "redirect:/index";
     }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout,  HttpSession session) {
         if (securityService.isAuthenticated()) {
-            return "redirect:/";
+            return "redirect:/index";
         }
 
         if (error != null)
@@ -88,7 +90,15 @@ public class RegistrationController {
         return "auth/login";
     }
     @PostMapping("/login")
-    public String userLogin (HttpServletRequest request, HttpServletResponse response){
+    public String userLogin (HttpServletRequest request, HttpServletResponse response, User userForm){
+
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        if(userForm.getEmail().equals(email) && userForm.getPassword().equals(password)){
+            securityService.autoLogin(userForm.getEmail(), userForm.getPassword());
+            return "/index";
+        }
 
         return "auth/login";
     }
