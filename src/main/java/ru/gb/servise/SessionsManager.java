@@ -2,7 +2,7 @@ package ru.gb.servise;
 
 import org.springframework.session.Session;
 
-public interface SessionsManager <S extends Session> {
+public interface SessionsManager<S extends Session> {
 
     S createSession();
 

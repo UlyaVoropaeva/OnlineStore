@@ -7,10 +7,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.entity.User;
 import ru.gb.repository.UserRepository;
 import ru.gb.servise.SecurityService;
@@ -22,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = "/auth")
+@SessionAttributes("user")
 public class RegistrationController {
 
     @Autowired
@@ -36,7 +34,7 @@ public class RegistrationController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null) {
-            new SecurityContextLogoutHandler().logout(request, response,  authentication);
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
         request.getSession().invalidate();
 
@@ -55,7 +53,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm")Model model, HttpServletRequest request, User userForm, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") Model model, HttpServletRequest request, User userForm, BindingResult bindingResult) {
 
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
@@ -64,7 +62,7 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "auth/registration";
         }
-        if (email.equals(userForm.getEmail()) || password.equals(userForm.getPassword())){
+        if (email.equals(userForm.getEmail()) || password.equals(userForm.getPassword())) {
             model.addAttribute("error", "Your username and password is invalid.");
             return "auth/login";
         }
@@ -76,7 +74,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout,  HttpSession session) {
+    public String login(Model model, String error, String logout, HttpSession session) {
         if (securityService.isAuthenticated()) {
             return "redirect:/index";
         }
@@ -89,13 +87,14 @@ public class RegistrationController {
 
         return "auth/login";
     }
+
     @PostMapping("/login")
-    public String userLogin (HttpServletRequest request, HttpServletResponse response, User userForm){
+    public String userLogin(HttpServletRequest request, HttpServletResponse response, User userForm) {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        if(userForm.getEmail().equals(email) && userForm.getPassword().equals(password)){
+        if (userForm.getEmail().equals(email) && userForm.getPassword().equals(password)) {
             securityService.autoLogin(userForm.getEmail(), userForm.getPassword());
             return "/index";
         }
@@ -104,7 +103,7 @@ public class RegistrationController {
     }
 
     @GetMapping({"/", "/index"})
-    public String welcome (Model model, HttpSession session) {
+    public String welcome(Model model, HttpSession session) {
         return "/index";
     }
 

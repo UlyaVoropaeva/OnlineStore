@@ -21,7 +21,7 @@ public class SpringSessionAttributes {
     private byte[] ATTRIBUTE_BYTES;
 
     @JoinTable(name = "SPRING_ATTRIBUTES_SESSION",
-            joinColumns =  @JoinColumn(name = "SESSION_PRIMARY_ID", referencedColumnName = "SESSION_PRIMARY_ID"),
+            joinColumns = @JoinColumn(name = "SESSION_PRIMARY_ID", referencedColumnName = "SESSION_PRIMARY_ID"),
             inverseJoinColumns = @JoinColumn(name = "SESSION_ID", referencedColumnName = "SESSION_ID")
     )
 

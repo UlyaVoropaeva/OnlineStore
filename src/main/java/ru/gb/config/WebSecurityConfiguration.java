@@ -31,7 +31,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private UserDetailsServiceImpl userDetailsService;
     private SessionRegistry sessionRegistry;
-    private  AuthenticationFailureHandler securityErrorHandler;
+    private AuthenticationFailureHandler securityErrorHandler;
     private ConcurrentSessionStrategy concurrentSessionStrategy;
 
 
@@ -74,7 +74,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .maximumSessions(3)
                 .maxSessionsPreventsLogin(true)
                 .sessionRegistry(sessionRegistry).and()
-               .sessionAuthenticationStrategy(concurrentSessionStrategy)
+                .sessionAuthenticationStrategy(concurrentSessionStrategy)
                 .sessionAuthenticationFailureHandler(securityErrorHandler);
     }
 
@@ -82,7 +82,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public static SessionRegistry sessionRegistry(JdbcIndexedSessionRepository sessionRepository) {
         return new SpringSessionBackedSessionRegistry(sessionRepository);
     }
-
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -96,5 +95,4 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

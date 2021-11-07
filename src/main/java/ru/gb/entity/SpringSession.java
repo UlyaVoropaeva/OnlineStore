@@ -34,5 +34,4 @@ public class SpringSession {
 
     @OneToMany
     private Collection<SpringSessionAttributes> springSessionAttributes;
-
 }

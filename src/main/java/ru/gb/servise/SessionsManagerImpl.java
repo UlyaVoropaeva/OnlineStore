@@ -10,7 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class SessionsManagerImpl implements SessionsManager{
+public class SessionsManagerImpl implements SessionsManager {
 
     private FindByIndexNameSessionRepository sessionRepository;
 
@@ -36,7 +36,6 @@ public class SessionsManagerImpl implements SessionsManager{
 
     @Override
     public void deleteSessionExceptCurrentByUser(String username) {
-
         //Получаем session id текущего пользователя
         String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
 
