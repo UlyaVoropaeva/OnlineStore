@@ -1,6 +1,7 @@
 package ru.gb.entity;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -36,5 +37,21 @@ public class User {
 
     @ManyToMany
     private Collection<Role> roles;
+
+    public User() {
+    }
+
+    public User(@Value("id") long id,
+                @Value("email") String email,
+                @Value("password") String password,
+                @Value("firstName") String firstName,
+                @Value("secondName") String secondName) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.secondName = secondName;
+
+    }
 
 }
