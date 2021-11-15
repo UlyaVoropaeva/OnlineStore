@@ -1,4 +1,4 @@
-package ru.gb.servise;
+package ru.gb.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

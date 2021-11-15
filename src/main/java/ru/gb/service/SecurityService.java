@@ -1,4 +1,4 @@
-package ru.gb.servise;
+package ru.gb.service;
 
 public interface SecurityService {
     boolean isAuthenticated();

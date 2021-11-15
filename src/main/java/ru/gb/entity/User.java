@@ -30,6 +30,9 @@ public class User {
     @Column(name = "secondName")
     private String secondName;
 
+    @Column(name = "active")
+    private int active;
+
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -37,6 +40,7 @@ public class User {
 
     @ManyToMany
     private Collection<Role> roles;
+
 
     public User() {
     }
@@ -52,6 +56,10 @@ public class User {
         this.firstName = firstName;
         this.secondName = secondName;
 
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 
 }

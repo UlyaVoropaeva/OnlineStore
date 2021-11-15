@@ -16,8 +16,8 @@
 
         <h4 class="text-center">Welcome <span sec:authentication="name"></span> |
             <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
-        <h4 class="text-center"><a  th:href="@{/auth/login}">Вход</a></h4>
-        <h4 class="text-center"><a  th:href="@{/auth/registration}">Регистрация</a></h4>
+        <h4 class="text-center"><a th:href="@{/auth/login}">Вход</a></h4>
+        <h4 class="text-center"><a th:href="@{/auth/registration}">Регистрация</a></h4>
     </div>
     <h4><a th:href="@{/category/category-all}">Категория товаров</a></h4>
     <h4><a th:href="@{/products/products}">Список товаров</a></h4>

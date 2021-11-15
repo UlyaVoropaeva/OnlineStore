@@ -10,7 +10,7 @@ import ru.gb.repository.CategoryRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+
 @Controller
 @RequestMapping("/category")
 public class CategoryController {

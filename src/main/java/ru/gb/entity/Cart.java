@@ -31,7 +31,6 @@ public class Cart {
     List<Product> products;
 
     public Cart() {
-
     }
 
     public Cart(@Value("id") long id,

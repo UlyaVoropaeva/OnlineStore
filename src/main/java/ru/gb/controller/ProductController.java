@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,6 @@ import ru.gb.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Service
 @Controller
 @RequestMapping(value = "/products")
 
@@ -34,11 +31,10 @@ public class ProductController {
 
 
     @GetMapping("/products")
-    public String findAll(@ModelAttribute("productList") List<Product> product) {
-
-        product = new ArrayList<>();
+    public String findAll(@ModelAttribute("products") Model  model) {
+        List<Product> product = new ArrayList<>();
         productService.findAll().forEach(product::add);
-
+        model.addAttribute("productList", product);
         return "products/products";
 
     }
@@ -50,16 +46,11 @@ public class ProductController {
         return "/products/products-add";
     }
 
-   @PostMapping("/products-add")
-    public String update(@RequestParam Long id,
-                         @RequestParam(value = "product", required = false) boolean edit,
-                         @RequestParam(value = "categories", required = false) boolean editCategories) {
-        productService.update(id);
-        return "redirect: products/products";
-    }
 
     @PostMapping
-    public String save(@RequestParam Product product, BindingResult result) {
+    public String save(@RequestParam(value = "products", required = false) Product product,
+                       @RequestParam(value = "categories", required = false) Category category,
+                       BindingResult result) {
         if (result.hasErrors()) {
             return "products/products-add";
         }
@@ -71,8 +62,8 @@ public class ProductController {
     public String saveForm(Model model) {
         List<Category> categories = new ArrayList<>();
         categoryRepository.findAll().forEach(categories ::add);
-        model.addAttribute("categories", new Product());
-        model.addAttribute("product", new Product());
+        model.addAttribute("categories", categories);
+        model.addAttribute("products", new Product());
 
         return "products/products-add";
     }

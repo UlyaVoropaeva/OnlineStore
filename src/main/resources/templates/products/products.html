@@ -26,6 +26,7 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.description}"></td>
+            <td th:text="${product.categories}"></td>
         <td>
             <form method="post" th:object="carts" th:action="@{/cart/cartToAdd}">
               <li th:each="product : ${productList}">

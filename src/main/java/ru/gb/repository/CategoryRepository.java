@@ -7,4 +7,3 @@ import ru.gb.entity.Category;
 
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Long> {}
-

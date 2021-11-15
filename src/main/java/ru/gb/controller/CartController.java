@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 @Controller
 @RequestMapping(value = "/cart")
 public class CartController {
@@ -58,7 +57,7 @@ public class CartController {
             return "/products/products";
         }
         repository.saveProductToCart(countProduct, product.getId());
-        model.addAttribute("carts",new Cart());
+        model.addAttribute("carts", new Cart());
         return "redirect:/carts";
     }
 

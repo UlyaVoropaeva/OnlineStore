@@ -16,9 +16,6 @@ public interface CartRepository extends PagingAndSortingRepository<Cart, Long> {
     @Query ("select c from Cart as c ")
     Iterable<Cart> findAll();
 
-    @Query("SELECT c FROM Cart  as c WHERE c.id = :id")
-    Cart getById(@Param("id") long id);
-
     @Modifying
     @Query(value = "insert into carts(countProduct, productID) values (:countProduct, :id)", nativeQuery = true)
     Cart saveProductToCart(@Param("id") long id, @Param("countProduct") long countProduct);
