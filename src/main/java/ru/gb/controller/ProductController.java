@@ -1,6 +1,6 @@
 package ru.gb.controller;
 
-import org.jetbrains.annotations.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @GetMapping("/products-add/{id}")
-    public String updateProduct (@PathVariable long id, @NotNull Model model) {
+    public String updateProduct (@PathVariable long id, Model model) {
         model.addAttribute("product", productService.findById(id));
 
         return "/products/products-add";

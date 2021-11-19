@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @Scope("session")
 
-public class Product {
+public class Product extends ru.gb.web.service.Product {
     @Id
     @GeneratedValue
     @Column(name = "productId")
