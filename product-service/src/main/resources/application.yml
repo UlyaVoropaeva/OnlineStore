@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: product-service
+
+eureka:
+  instance:
+    hostname: server
+  client:
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+server:
+  port: 8001
+zuul:
+  routes:
+    server:
+      path: /server/**
+      url: http://localhost/server
+
+
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/OnlineStore
+    username: root
+    password: 12345
+  session:
+    store-type: jdbc
+
+    jdbc:
+      initialize-schema: always
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  thymeleaf:
+    check-template-location: true
+    servlet:
+      content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    suffix: .html
+    prefix: classpath:/templates/
