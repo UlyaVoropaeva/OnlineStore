@@ -1,4 +1,4 @@
-package ru.gb.servise;
+package ru.gb.service;
 
 import org.springframework.session.Session;
 

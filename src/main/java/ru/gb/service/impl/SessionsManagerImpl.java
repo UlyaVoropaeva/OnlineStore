@@ -1,4 +1,4 @@
-package ru.gb.servise;
+package ru.gb.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,6 +6,7 @@ import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
+import ru.gb.service.SessionsManager;
 
 @Service
 @RequiredArgsConstructor

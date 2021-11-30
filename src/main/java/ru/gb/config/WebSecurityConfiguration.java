@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -21,7 +20,7 @@ import org.springframework.session.jdbc.JdbcIndexedSessionRepository;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import ru.gb.component.ConcurrentSessionStrategy;
-import ru.gb.servise.UserDetailsServiceImpl;
+import ru.gb.service.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -48,12 +47,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                .and()
-                .csrf()
-                .and()
-                .authorizeRequests()
+        http.authorizeRequests().antMatchers()
+                .permitAll()
+                //       .cors()
+                //       .and()
+                //       .csrf()
+                //      .and()
+                //       .authorizeRequests()
                 .antMatchers("/auth/registration").not().fullyAuthenticated()
                 .antMatchers("*/admin/**").hasRole("ADMIN")
                 .and()

@@ -1,7 +1,8 @@
-package ru.gb.servise;
+package ru.gb.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,7 @@ import ru.gb.entity.User;
 import ru.gb.repository.RoleRepository;
 import ru.gb.repository.UserRepository;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -32,18 +34,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) {
         Optional<User> mayBeUser = userRepository.findByEmail(userName);
-        if (mayBeUser.isEmpty()) {
-            throw new UsernameNotFoundException("User cannot be fount  by passed name: " + userName);
-        }
+        //if (mayBeUser.isEmpty()) {
+      //      throw new UsernameNotFoundException("User cannot be fount  by passed name: " + userName);
+       // }
         User user = mayBeUser.get();
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                user.getRoles()
-                        .stream()
-                        .map(role -> new SimpleGrantedAuthority(role.getName()))
-                        .toList()
-        );
+        return (UserDetails) user;
+        //        new org.springframework.security.core.userdetails.User(
+         //       user.getEmail()
+         //       ,user.getPassword(),
+          //       user.getRoles()
+                //               .stream()
+          //              .map(role -> new SimpleGrantedAuthority(role.getName()))
+           //             .toList()
+       // );
     }
 }

@@ -11,25 +11,16 @@
 <div class="container">
     <div sec:authorize="isAuthenticated()">
         <form id="logoutForm" method="POST" th:action="@{/index}">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="hidden" name="${_csrf.parameterName}"/>
         </form>
 
-        <h4 class="text-center">Welcome <span sec:authentication="name"></span> | <a
-                onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
-        <h4 class="text-center"><a href="/ui/auth/login">Log in to your account</a></h4>
+        <h4 class="text-center">Welcome <span sec:authentication="name"></span> |
+            <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>
+        <h4 class="text-center"><a th:href="@{/auth/login}">Вход</a></h4>
+        <h4 class="text-center"><a th:href="@{/auth/registration}">Регистрация</a></h4>
     </div>
+    <h4><a th:href="@{/category/category-all}">Категория товаров</a></h4>
+    <h4><a th:href="@{/products/products}">Список товаров</a></h4>
 </div>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-<script src="/js/main.js"></script>
 </body>
 </html>
