@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import ru.gb.entity.Product;
 import ru.gb.repository.ProductRepository;
+import ru.gb.service.NotEnoughProductsInStockException;
 import ru.gb.service.ShoppingCartService;
 
 import java.math.BigDecimal;

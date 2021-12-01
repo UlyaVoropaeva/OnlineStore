@@ -5,13 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.entity.Category;
+import ru.gb.entity.Product;
 import ru.gb.repository.CategoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Controller
+@RestController
 @RequestMapping("/category")
 public class CategoryController {
 
@@ -41,5 +42,11 @@ public class CategoryController {
                       @RequestBody Category category) {
         repository.save(category);
         return "category/category-all";
+    }
+
+    @DeleteMapping
+    public String delete(@PathVariable Category category) {
+        repository.delete(category);
+        return "redirect:/products";
     }
 }
