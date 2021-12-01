@@ -2,14 +2,13 @@ package ru.gb.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.entity.Category;
 import ru.gb.entity.Product;
-import ru.gb.repository.CategoryRepository;
+
 import ru.gb.repository.ProductRepository;
 
 import java.util.ArrayList;
@@ -20,18 +19,17 @@ import java.util.List;
 
 public class ProductController {
 
+
     private final ProductRepository productService;
-    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public ProductController(ProductRepository productService, CategoryRepository categoryRepository) {
+    public ProductController(ProductRepository productService) {
         this.productService = productService;
-        this.categoryRepository=categoryRepository;
     }
 
 
     @GetMapping("/products")
-    public String findAll(@ModelAttribute("products") Model  model) {
+    public String findAll(@ModelAttribute("products") Model model) {
         List<Product> product = new ArrayList<>();
         productService.findAll().forEach(product::add);
         model.addAttribute("productList", product);
@@ -39,8 +37,9 @@ public class ProductController {
 
     }
 
+
     @GetMapping("/products-add/{id}")
-    public String updateProduct (@PathVariable long id, Model model) {
+    public String updateProduct(@PathVariable long id, Model model) {
         model.addAttribute("product", productService.findById(id));
 
         return "/products/products-add";
@@ -61,8 +60,8 @@ public class ProductController {
     @GetMapping("/products-add")
     public String saveForm(Model model) {
         List<Category> categories = new ArrayList<>();
-        categoryRepository.findAll().forEach(categories ::add);
-        model.addAttribute("categories", categories);
+      //  categoryRepository.findAll().forEach(categories::add);
+      //  model.addAttribute("categories", categories);
         model.addAttribute("products", new Product());
 
         return "products/products-add";
@@ -74,8 +73,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        productService.deleteById(id);
+    public String delete(@PathVariable Product product) {
+        productService.delete(product);
         return "redirect:/products";
     }
 

@@ -1,4 +1,4 @@
-package ru.gb.repository;
+package ru.gb.entity.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import ru.gb.entity.Role;

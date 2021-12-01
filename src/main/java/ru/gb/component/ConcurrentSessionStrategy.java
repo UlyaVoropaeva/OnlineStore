@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Component
 public class ConcurrentSessionStrategy extends ConcurrentSessionControlAuthenticationStrategy {
-    //параметр для определения выбора пользователя(true - закрываем прошлую активную сессию)
+   //параметр для определения выбора пользователя(true - закрываем прошлую активную сессию)
     private static final String FORCE_PARAMETER_NAME = "force";
     // сервис для управления сессиями
     private final SessionsManager sessionsManager;

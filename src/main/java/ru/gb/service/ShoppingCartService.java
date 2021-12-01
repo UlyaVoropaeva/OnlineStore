@@ -15,4 +15,5 @@ public interface ShoppingCartService {
     Map<Product, Integer> getProductsInCart();
 
     BigDecimal getTotal();
+
 }

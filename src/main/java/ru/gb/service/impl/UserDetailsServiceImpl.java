@@ -2,18 +2,16 @@ package ru.gb.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.gb.entity.User;
-import ru.gb.repository.RoleRepository;
-import ru.gb.repository.UserRepository;
+import ru.gb.entity.repository.RoleRepository;
+import ru.gb.entity.repository.UserRepository;
 
-import java.util.Collection;
+
 import java.util.Optional;
 
 @Service
