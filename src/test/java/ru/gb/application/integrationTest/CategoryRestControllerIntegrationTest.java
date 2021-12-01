@@ -41,12 +41,12 @@ public class CategoryRestControllerIntegrationTest {
     @Test
     public void categoryFindAllTest() {
         List<Category> categories = new ArrayList<>();
-        Category category =new Category(1,"TestCat");
+        Category category = new Category(1, "TestCat");
         categories.add(category);
         Model model = null;
         BDDMockito.given(categoryController.findAll(categories, model))
                 .willReturn("/category-all");
-        ResponseEntity<Category>  responseEntity = restTemplate.getForEntity("/category-all", Category.class);
+        ResponseEntity<Category> responseEntity = restTemplate.getForEntity("/category-all", Category.class);
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 
     }

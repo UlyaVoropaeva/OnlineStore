@@ -25,6 +25,5 @@ public class UsersClientTest {
         Mockito.when(userService.findByEmail(
                         Mockito.argThat(arg -> arg == null || arg.length() > 5)))
                 .thenReturn(null);
-
     }
 }

@@ -42,6 +42,4 @@ class ProductControllerTest {
         ProductController productController = new ProductController(productRepository);
         Assertions.assertThat(productController.delete(product)).isNotEmpty();
     }
-
-
 }

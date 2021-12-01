@@ -11,7 +11,6 @@ import ru.gb.entity.User;
 import ru.gb.entity.repository.UserRepository;
 
 
-
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ClientDataJpaTest {
@@ -22,19 +21,19 @@ public class ClientDataJpaTest {
     @Autowired
     private UserRepository repository;
 
-   @Test
-   public void findByEmailTest() {
-       entityManager.persist(new User(1, "test@test.com", "12345", "test 1 ", "secondName"));
-       User user = repository.findByEmail("test@test.com").get();
-       Assertions.assertThat(user.getEmail().equals("test@test.com"));
-   }
+    @Test
+    public void findByEmailTest() {
+        entityManager.persist(new User(1, "test@test.com", "12345", "test 1 ", "secondName"));
+        User user = repository.findByEmail("test@test.com").get();
+        Assertions.assertThat(user.getEmail().equals("test@test.com"));
+    }
 
     @Test
     @Rollback(false)
-    public void testSaveNewUser(){
+    public void testSaveNewUser() {
 
-       User saveUser = repository.save(new User(2, "test2@test2.com", "54321", "test 2", "secondName2"));
-       Assertions.assertThat(saveUser.getId()).isGreaterThan(2);
+        User saveUser = repository.save(new User(2, "test2@test2.com", "54321", "test 2", "secondName2"));
+        Assertions.assertThat(saveUser.getId()).isGreaterThan(2);
     }
 
 }
