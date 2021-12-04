@@ -4,6 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AuthenticatedVoter;
+import org.springframework.security.access.vote.RoleVoter;
+import org.springframework.security.access.vote.UnanimousBased;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
@@ -21,6 +27,9 @@ import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHtt
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import ru.gb.component.ConcurrentSessionStrategy;
 import ru.gb.service.impl.UserDetailsServiceImpl;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -44,7 +53,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers()
@@ -56,6 +64,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //       .authorizeRequests()
                 .antMatchers("/auth/registration").not().fullyAuthenticated()
                 .antMatchers("*/admin/**").hasRole("ADMIN")
+                .anyRequest()
+                .authenticated()
+                .accessDecisionManager(accessDecisionManager())
                 .and()
                 .formLogin()
                 .loginPage("/auth/login")
@@ -73,7 +84,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .maximumSessions(3)
                 .maxSessionsPreventsLogin(true)
-                .sessionRegistry(sessionRegistry).and()
+                .sessionRegistry(sessionRegistry)
+                .and()
                 .sessionAuthenticationStrategy(concurrentSessionStrategy)
                 .sessionAuthenticationFailureHandler(securityErrorHandler);
     }
@@ -92,7 +104,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public AccessDecisionManager accessDecisionManager() {
+        List<AccessDecisionVoter<? extends Object>> decisionVoters
+                = Arrays.asList(
+                new WebExpressionVoter(),
+                new RoleVoter(),
+                new AuthenticatedVoter());
+        return new UnanimousBased(decisionVoters);
+    }
+    @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }
