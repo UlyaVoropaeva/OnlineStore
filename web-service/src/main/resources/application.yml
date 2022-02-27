@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: web-service
+cloud:
+  config:
+  import-check:
+  enabled:  false
+eureka:
+  instance:
+    hostname: server
+  client:
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+server:
+  port: 8002
+
+zuul:
+  routes:
+    server:
+      path: /server/**
+      url: http://localhost/server

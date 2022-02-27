@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: server
+  autoconfigure.exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  jmx:
+    default_domain: cloud.config.server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/UlyaVoropaeva/spring-cloud-config.git
+          repos:
+              uri: https://github.com/UlyaVoropaeva/spring-cloud-config
+server:
+  port: 8888
+  eureka:
+    instance:
+      hostname: localhost.com
+    client:
+      registerWithEureka: false
+      fetchRegistry: false
+      serviceUrl:
+        defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+zuul:
+  routes:
+    authorization-service:
+      path: /authorization-service/**
+      url: http://authorization-service.localhost.com
+    web-service:
+      path: /web-service/**
+      url: http://web-service.localhost.com
+    product-service:
+      path: /product-service/**
+      url:  http://fproduct-service.localhost.com

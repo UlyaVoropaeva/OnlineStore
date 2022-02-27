@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: authorization-service
+
+eureka:
+  instance:
+    hostname: server
+  client:
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+server:
+  port: 8000
+
+zuul:
+  routes:
+    server:
+      path: /server/**
+      url: http://localhost/server
+
+
